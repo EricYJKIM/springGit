@@ -20,6 +20,7 @@ public class BoardController {
 
 	@Autowired
 	private BoardDAO bdao;
+	
 	@Autowired
 	private PagingVO vo;
 
