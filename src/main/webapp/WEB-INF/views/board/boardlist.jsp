@@ -28,7 +28,25 @@
 		text-decoration: none;
 	}
 	
+	#write{
+		margin-left:40%;
+		height: 30px;
+   		width: 100px;
+   		border: 1px solid #ddd;
+   		background-color:#FFFFD2;
+} 
+	}
+	
 </style>
+<script>
+$(function() {
+	$("#write").on("click", function() {
+		location.href = "";
+	})
+
+
+})
+</script>
 <body>
 	   <table align="center">
 	      <tr>
@@ -72,5 +90,7 @@
 			<a href="list?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 		</c:if>
 	</div>
+	
+	<button id=write>글쓰기</button>
 </body>
 </html>
