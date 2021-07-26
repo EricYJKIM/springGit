@@ -45,7 +45,7 @@ public class BoardController {
 		int result = dao.delete(board_seq);
 		return "home";
 	}
-		
+
 	private PagingVO vo;
 	
 	@RequestMapping("boardlist")
