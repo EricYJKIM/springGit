@@ -62,7 +62,10 @@
 
 .menu>div:hover {
 	background-color: #ddd;
+	text-decoration: none; !important
+	
 }
+
 
 a {
 	text-decoration: none;
