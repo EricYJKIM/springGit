@@ -8,7 +8,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
+<script>
+	$(function(){
+		$("#toWrite").on("click",function(){
+			location.href = "/board/boardWrite";
+		})
+	})
+</script>
 </head>
 <style>
 	body {
@@ -41,7 +47,7 @@
 <script>
 $(function() {
 	$("#write").on("click", function() {
-		location.href = "";
+		location.href = "/board/boardWrite";
 	})
 
 
@@ -69,6 +75,7 @@ $(function() {
 			</tr>
 		</c:forEach>
 	   </table>
+	   
 	   <br>
 	   
 	   <!-- 페이징 -->

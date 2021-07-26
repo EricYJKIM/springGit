@@ -1,3 +1,4 @@
+
 package kh.spring.main;
 
 import javax.servlet.http.HttpSession;
@@ -83,6 +84,4 @@ public class MemberController {
 		return "redirect:/";
 		
 	}
-	
-
 }
