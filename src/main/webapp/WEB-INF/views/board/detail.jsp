@@ -11,6 +11,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <style>
 .table-title {
    padding-bottom: 15px;
@@ -65,19 +66,44 @@
 				<div class="contents">${list.contents}</div>
 				<div class="btn_wrap" align="right">
 					<c:choose>
-						<c:when test="${login.id eq list.id}">
-							<a
-								href="${pageContext.request.contextPath}/modifyPage.bor?board_seq=${list.board_seq}"
-								class="btn btn-warning"
-								style="background-color: #ffc107; color: white">수정</a>
-							<a href="#boardDeleteForm" class="btn btn-danger"
-								data-toggle="modal">삭제</a>
+						<c:when test="${loginID eq list.id}">
+							<a href="/board/modifyForm?board_seq=${list.board_seq}" class="btn btn-warning" style="background-color: #ffc107; color: white">수정</a>
+							<a href="#boardDeleteForm" class="btn btn-danger" data-toggle="modal">삭제</a>
 						</c:when>
 					</c:choose>
 					<a href="/board/list" id="backBtn" class="btn btn-default pull-left"
 						style="background-color: #00285b; color: white">목록</a>
 				</div>
 			</div>
+			
+			
+			   <!-- Board Delete Modal HTML -->
+   <div id="boardDeleteForm" class="modal fade">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <form
+               action="/board/delete?board_seq=${list.board_seq}"
+               method="post">
+               <div class="modal-header">
+                  <h4 class="modal-title">게시글을 삭제하시겠습니까?</h4>
+                  <button type="button" class="close" data-dismiss="modal"
+                     aria-hidden="true">&times;</button>
+               </div>
+               <div class="modal-body">
+                  <p>삭제된 게시글은 복구할 수 없습니다.</p>
+                  <p class="text-warning">
+                     <small>해당 게시글의 댓글 또한 삭제됩니다.</small>
+                  </p>
+               </div>
+               <div class="modal-footer">
+                  <input type="button" class="btn btn-default" data-dismiss="modal"
+                     value="취소">
+                     <input type="submit" class="btn btn-danger" value="삭제" id="delete">
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
 
 </body>
 </html>

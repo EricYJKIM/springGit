@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardDAO dao;
+	
+	@Autowired
+	private PagingVO vo;
 	
 	@Autowired
 	private HttpSession session;
@@ -51,7 +55,9 @@ public class BoardController {
 		return "home";
 	}
 
-	private PagingVO vo;
+
+
+
 	
 	@RequestMapping("boardlist")
 	public String boardList() {

@@ -11,33 +11,31 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 <body>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-	$(function() {
-		$("#logout").on("click", function() {
-			location.href = "/member/logout";
-		})
-		$("#memberOut").on("click", function() {
-			let result = confirm("정말 탈퇴하시겠습니까?");
-			if (result) {
-				location.href = "/member/memberOut";
-			}
-		})
-		$("#boardBtn").on("click", function() {
-			location.href = "/board/list";
-		})
-		$("#signup").on("click", function() {
-			location.href = "/member/signup";
-		})
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		$(function() {
+			$("#logout").on("click", function() {
+				location.href = "/member/logout";
+			})
+			$("#memberOut").on("click", function() {
+				let result = confirm("정말 탈퇴하시겠습니까?");
+				if (result) {
+					location.href = "/member/memberOut";
+				}
+			})
+			$("#signup").on("click", function() {
+				location.href = "/member/signup";
+			})
 
+			$("#boardBtn").on("click", function() {
+				location.href = "/board/list";
+			})
 
-
-		
-		
 		})
 
 </script>
+
 <style>
 .wrapper {
 	margin: auto;
@@ -78,7 +76,7 @@
 
 .menu>div:hover {
 	background-color: #ddd;
-	color:white;
+	color: white;
 	cursor: pointer;
 	
 }
@@ -96,9 +94,10 @@
 					<h3>로그인</h3>
 					<div class="form-group">
 						<label for="exampleInputEmail1">ID</label> <input type="text"
-							class="form-control" id="id" name="id" placeholder="아이디를 입력해 주세요."
-							aria-describedby="emailHelp"> <small id="emailHelp"
-							class="form-text text-muted">저희는 아이디를 다른 사람과 공유하지 않습니다.</small>
+							class="form-control" id="id" name="id"
+							placeholder="아이디를 입력해 주세요." aria-describedby="emailHelp">
+						<small id="emailHelp" class="form-text text-muted">저희는
+							아이디를 다른 사람과 공유하지 않습니다.</small>
 					</div>
 					<div class="form-group">
 						<label for="exampleInputPassword1">Password</label> <input
@@ -126,7 +125,7 @@
 					<div id=memberOut>회원탈퇴</div>
 
 				</div>
- 
+
 			</div>
 		</c:otherwise>
 
