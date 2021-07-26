@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import kh.spring.dao.BoardDAO;
 import kh.spring.dto.BoardDTO;
@@ -28,10 +29,11 @@ public class BoardController {
 	@Autowired
 	private HttpSession session;
 
-	@RequestMapping("detailProc")
-	public String detail(int board_seq) throws Exception{
+	@RequestMapping(value="detail" ,method=RequestMethod.GET)
+	public String detail(Model model,int board_seq) throws Exception{
 		BoardDTO dto = bdao.detail(board_seq);
-		return "detail";
+		model.addAttribute("list",dto);
+		return "board/detail";
 	}
 
 	@ExceptionHandler // 예외가 발생했을 때만,

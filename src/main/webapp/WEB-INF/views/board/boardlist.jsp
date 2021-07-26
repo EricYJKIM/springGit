@@ -62,7 +62,7 @@ $(function() {
 		<c:forEach items="${viewAll }" var="list">
 			<tr id=contentslist>
 				<td>${list.board_seq }</td>
-				<td><a href='detail?seq=${list.board_seq }'>${list.title }</a></td>
+				<td><a href='/board/detail?board_seq=${list.board_seq }'>${list.title }</a></td>
 				<td>${list.id }
 				<td>${list.write_date}
 				<td>${list.view_count}
