@@ -35,6 +35,9 @@
 				<div class="card-header bg-transparent border-secondary text-secondary col-12">
 					<h4 class="card-title" id="title2">글 쓰기</h4>
 				</div>
+				<div>
+					<input type="file" name="file" multiple>
+				</div>
 				<div class="col-12">
 					<input type=text class="form-control mb-2" placeholder="제목을 입력하세요." name="title" id="title">
 				</div>
@@ -48,31 +51,6 @@
 			</div>
 		</form>
 	</div>
-<!-- 	<script>
-	    $('#summernote').summernote({
-	        placeholder: '내용을 입력하세요.',
-	        height: 500,
-	        callbacks:{
-	        	onImageUpload: function(files) {
-	        		let editor = this; // SummerNote 인스턴스의 주소를 editor 변수에 저장
-	        		let file = files[0]; //업로드 해야하는 파일 인스턴스
-	        		
-	        		let form = new FormData();
-	        		form.append("abc",file); // "" 안은 name값 
-	        		
-	        		$.ajax({
-	        			data:form,
-	        			type:"post",
-	        			url:"${pageContext.request.contextPath}/upload.file",
-	        			contentType:false,
-	        			processData:false
-	        		}).done(function(resp){
-	        			$(editor).summernote('insertImage',"${pageContext.request.contextPath}"+resp)
-	        			// editor 인스턴스의 insertImage  기능으로 이미지를 화면에 출력
-	        		});
-	        	}
-	        }
-	      });
-    </script> -->
+
 </body>
 </html>

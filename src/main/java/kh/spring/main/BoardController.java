@@ -1,6 +1,9 @@
 package kh.spring.main;
 
 
+import java.io.File;
+import java.util.UUID;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+
 import kh.spring.dao.BoardDAO;
 import kh.spring.dto.BoardDTO;
 import kh.spring.vo.PagingVO;
@@ -59,9 +64,34 @@ public class BoardController {
 	}
 	
 	@RequestMapping("writeProc")
-	public String writeProc(String title, String contents) throws Exception{
-//		String id = (String)session.getAttribute("loginID");
+	public String writeProc(String title, String contents, MultipartFile[] file) throws Exception{
+
 		dao.insert(title,contents);
+		
+		String realPath = session.getServletContext().getRealPath("files");
+
+		File filesPath = new File(realPath);
+		if(!filesPath.exists()) {
+			filesPath.mkdir();
+		}
+		
+		System.out.println(file.length);
+		System.out.println(file[0]);
+		System.out.println(file[0].getSize());
+
+		for(MultipartFile tmp : file) {
+				
+			if(tmp.getSize() > 0) {
+			String oriName = tmp.getOriginalFilename();
+			String sysName = UUID.randomUUID().toString().replaceAll("-", "")+"_"+oriName;
+
+
+
+			tmp.transferTo(new File(filesPath.getAbsolutePath()+"/"+sysName));
+			}
+		}
+		
+		
 		return "redirect:/";
 	}
 	
@@ -88,6 +118,8 @@ public class BoardController {
 		model.addAttribute("list",dto);
 		return "board/detail";
 	}
+	
+	
 
 	@ExceptionHandler // 예외가 발생했을 때만,
 	public String execeptionHandler(Exception e) {
