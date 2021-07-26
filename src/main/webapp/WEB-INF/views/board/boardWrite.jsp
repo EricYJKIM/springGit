@@ -39,7 +39,7 @@
 					<input type=text class="form-control mb-2" placeholder="제목을 입력하세요." name="title" id="title">
 				</div>
 				<div class="col-12" style="height: 600px"><br>
-					<textarea id="contents" name="contents"></textarea>
+					<textarea id="contents" name="contents" style="width:100%;height:80%;"></textarea>
 				</div>
 				<div class="col-12 btns" align="right">
 					<button type="submit" class="btn btn-outline-secondary" id="toWrite">글 쓰기</button>

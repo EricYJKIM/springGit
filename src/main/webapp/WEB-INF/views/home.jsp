@@ -27,17 +27,15 @@
 		$("#signup").on("click", function() {
 			location.href = "/member/signup";
 		})
+
 		$("#boardBtn").on("click",function(){
 			location.href = "board/boardlist";
 		})
 
 
-		$("#boardBtn").on("click", function() {
-			location.href = "/board/list";
-
+		
+		
 		})
-
-	})
 </script>
 <style>
 .wrapper {
@@ -89,7 +87,6 @@
 </style>
 </head>
 <body>
-
 	<c:choose>
 		<c:when test="${loginID==null }">
 			<div class="container p-3 col-12"

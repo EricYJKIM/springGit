@@ -1,7 +1,10 @@
-package kh.spring.dto;
+	package kh.spring.dto;
 
 import java.sql.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class BoardDTO {
 	private int board_seq;
 	private String id;
