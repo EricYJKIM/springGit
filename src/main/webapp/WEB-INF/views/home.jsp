@@ -19,25 +19,33 @@
 			location.href = "/member/logout";
 		})
 		$("#memberOut").on("click", function() {
-         let result=confirm("정말 탈퇴하시겠습니까?");
-         if(result){
-            location.href = "/member/memberOut";
-         }
-      })
+			let result = confirm("정말 탈퇴하시겠습니까?");
+			if (result) {
+				location.href = "/member/memberOut";
+			}
+		})
 		$("#signup").on("click", function() {
 			location.href = "/member/signup";
 		})
-		
+
 	})
 </script>
 <style>
 .wrapper {
-	margin: 40px 120px 0px 120px;
+	margin: auto;
+	margin-top: 40px;
 	text-align: center;
 }
 
+.img {
+	margin: auto;
+	width: 200px;
+	height: 200px;
+}
+
 .img>img {
-	width: 100% height:100%
+	width: 100%;
+	height: 100%;
 }
 
 .title {
@@ -57,23 +65,18 @@
 	width: 200px;
 	border: 1px solid #ddd;
 	margin: auto;
-	line-height: 60px;
+	line-height: 65px;
 }
 
 .menu>div:hover {
 	background-color: #ddd;
-	text-decoration: none; !important
+	color:white;
+	cursor: pointer;
 	
 }
 
 
-a {
-	text-decoration: none;
-	color: black;
-	display: block;
-	width: 100%;
-	height: 100%;
-}
+
 </style>
 </head>
 <body>
@@ -110,17 +113,13 @@ a {
 				</div>
 				<div class="title">${loginID }님</div>
 				<div class="menu">
-					<div>
-						<a href="#">게시판</a>
-					</div>
-					<div>
-						<a href="/member/logout">로그아웃</a>
-					</div>
-					<div>
-						<a href="/member/memberOut" id="memberOut">회원탈퇴</a>
-					</div>
-				</div>
 
+					<div id=boardBtn>게시판</div>
+					<div id=logout>로그아웃</div>
+					<div id=memberOut>회원탈퇴</div>
+
+				</div>
+ 
 			</div>
 		</c:otherwise>
 
