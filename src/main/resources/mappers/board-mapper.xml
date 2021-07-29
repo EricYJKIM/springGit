@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Board">
+	
+	
+	<insert id="insert">
+
+		
+		insert into board values(board_seq.nextval,#{writer},#{title},#{contents},sysdate,0)
+
+	</insert>
+	
+	<!-- mybatis.selectOne() -->
+	<select id="selectCount" resultType="int">
+		select count(*) from person
+	</select>
+
+
+	<!--select태그 에서는 resultType이 필수이다. 안쓰면 에러난다. -->
+	<select id="selectAll" resultType="kh.spring.dto.PersonDTO">
+		select * from person
+
+	</select>
+
+	<delete id="delete">			<!--값하나만 덩그러니 넘어왔는 때는 #{value} / ${value} $는 '' 안붙인다. -->
+		delete from person where id= ${value}
+	</delete>
+
+	<update id="update">
+
+		update person set name=#{name}, contact=#{contact} where id=#{id}
+
+	</update>
+
+
+	<select id="search" resultType="kh.spring.dto.PersonDTO">
+		select * from person where ${category} like '%${keyword}%'
+		<!--'%'||#{keyword}||'%' 도 가능 -->
+
+	</select>
+
+	<!--#{mdto.address} 인스턴스에 Map에 담아서 보내면, 키값에 .을 찍어서 사용한다. -->
+
+	<select id="search2" resultType="kh.spring.dto.PersonDTO">
+
+		select * from person
+		<trim prefix="where" prefixOverrides="and">
+			
+			<if test="id!=''">
+				id=#{id}
+
+			</if>
+			<if test="name!=''">
+				and name=#{sname}
+
+			</if>
+			<if test="contact!=''">
+				and contact=#{scontact}
+
+			</if>
+
+		</trim>
+
+
+
+
+	</select>
+
+
+
+
+</mapper>

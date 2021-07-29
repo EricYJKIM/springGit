@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -20,7 +21,7 @@ import kh.spring.vo.PagingVO;
 public class BoardDAO {
 
 	@Autowired
-	private JdbcTemplate jdbc;
+	private SqlSessionTemplate mybatis;
 	
 	@Autowired
 	private HttpSession session;
@@ -38,8 +39,6 @@ public class BoardDAO {
 
 
 
-	@Autowired
-	private BoardDAO dao;
 	
 	
 	public int insert(String title, String contents) throws Exception{
@@ -116,7 +115,7 @@ public class BoardDAO {
 				dto.setView_count(rs.getInt("view_count"));
 				dto.setWrite_date(rs.getDate("write_date"));
 				return dto;
-			}
+			} 
 		});
 
 	}

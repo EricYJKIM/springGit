@@ -2,8 +2,10 @@ package kh.spring.main;
 
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import kh.spring.dao.BoardDAO;
+import kh.spring.dao.FilesDAO;
 import kh.spring.dto.BoardDTO;
+import kh.spring.dto.FilesDTO;
+import kh.spring.service.BoardService;
 import kh.spring.vo.PagingVO;
 
 
@@ -25,13 +29,13 @@ import kh.spring.vo.PagingVO;
 public class BoardController {
 
 	@Autowired
-	private BoardDAO dao;
-	
-	@Autowired
-	private PagingVO vo;
-	
+	private BoardService service;
+		
 	@Autowired
 	private HttpSession session;
+	
+	@Autowired
+	private FilesDAO fdao;
 
 	//수정화면 이동
 	@RequestMapping("modifyForm")
@@ -44,14 +48,14 @@ public class BoardController {
 	@RequestMapping("modifyProc")
 	public String modify(BoardDTO dto) throws Exception {
 		System.out.println("수정 요청 확인");
-		int result = dao.modify(dto);
+		int result = service.modify(dto);
 		return "home";
 	}
 	
 	@RequestMapping("delete")
 	public String delete(int board_seq) throws Exception {
 		System.out.println("삭제 요청 확인");
-		int result = dao.delete(board_seq);
+		int result = service.delete(board_seq);
 		return "home";
 	}
 
@@ -72,30 +76,9 @@ public class BoardController {
 	@RequestMapping("writeProc")
 	public String writeProc(String title, String contents, MultipartFile[] file) throws Exception{
 
-		dao.insert(title,contents);
-		
 		String realPath = session.getServletContext().getRealPath("files");
-
-		File filesPath = new File(realPath);
-		if(!filesPath.exists()) {
-			filesPath.mkdir();
-		}
 		
-		System.out.println(file.length);
-		System.out.println(file[0]);
-		System.out.println(file[0].getSize());
-
-		for(MultipartFile tmp : file) {
-				
-			if(tmp.getSize() > 0) {
-			String oriName = tmp.getOriginalFilename();
-			String sysName = UUID.randomUUID().toString().replaceAll("-", "")+"_"+oriName;
-
-
-
-			tmp.transferTo(new File(filesPath.getAbsolutePath()+"/"+sysName));
-			}
-		}
+		service.insert(title,contents,realPath,file); 
 		
 		
 		return "redirect:/";
@@ -104,24 +87,40 @@ public class BoardController {
 	@RequestMapping("list")
 	public String list(PagingVO vo, Model model, String nowPage, String cntPerPage) throws Exception {
 			
-			int total = dao.CountBoard();
-			if (nowPage == null && cntPerPage == null) {
-				nowPage = "1";
-				cntPerPage = "5";
-				nowPage = "1";
-			} else if (cntPerPage == null) { 
-				cntPerPage = "5";
-			}
-			vo = new PagingVO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-			model.addAttribute("paging", vo);
-			model.addAttribute("viewAll", dao.SelectBoard(vo));
-		return "board/boardlist";
+			int total = service.CountBoard();
+			service.Paging(vo, model, nowPage, cntPerPage);
+			
+			return "board/boardlist";
 	}	
 
-	@RequestMapping(value="detail" ,method=RequestMethod.GET)
-	public String detail(Model model,int board_seq) throws Exception{
-		BoardDTO dto = dao.detail(board_seq);
+	@RequestMapping("detail")
+	public String detail(Model model,int board_seq,String oriName, String sysName, HttpServletResponse resp) throws Exception{
+		
+		System.out.println(board_seq);
+		BoardDTO dto = service.detail(board_seq);
+		List<FilesDTO> flist = fdao.filesBySeq(board_seq);
+		
+		System.out.println(flist);
+		
+//		String filesPath = session.getServletContext().getRealPath("files");
+//		File targetFile = new File(filesPath + "/" + sysName);
+//
+//		oriName = new String(oriName.getBytes(),"ISO_8859-1");
+//		
+//		
+//		resp.setContentType("application/octet-stream; charset=utf8");
+//		resp.setHeader("content-Disposition", "attachment;filename=\""+ oriName + "\"");
+//
+//		try(ServletOutputStream sos = resp.getOutputStream();){
+//
+//			FileUtils.copyFile(targetFile, sos);
+//
+//			sos.flush();
+//
+//		}
+		
 		model.addAttribute("list",dto);
+		model.addAttribute("flist",flist);
 		return "board/detail";
 	}
 	
